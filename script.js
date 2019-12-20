@@ -55,12 +55,21 @@ const keyMap = {
     "W": "57",
     "X": "58",
     "Y": "58",
-    "Z": "5A",
-    "+": "BB",
+    "Z": "51",
+    "+": "4F",
     ",": "0B",
     "-": "0B",
-    ".": "BE",
+    ".": "4F",
 }
+
+const audioFilesMap = new Map()
+Object.keys(keyMap).forEach(k => {
+    const keyCode = keyMap[k].toLowerCase()
+    audioFilesMap.set(k, {
+        1: new Audio(`wav/${keyCode}-1.wav`),
+        0: new Audio(`wav/${keyCode}-0.wav`)
+    })
+})
 
 const chatElem = document.getElementById("chat")
 const replyDelayMultiplier = 75
@@ -91,19 +100,11 @@ async function populate() {
 }
 
 function playSound(char, down) {
-    const keyCode = (keyMap[char.toUpperCase()] || "0a").toLowerCase()
+    const audioFile = audioFilesMap.get(char.toUpperCase()) || audioFilesMap.get("A")
     if (down) {
-        try {
-            new Audio(`wav/${keyCode}-1.wav`).play()
-        } catch (e) {
-            new Audio(`wav/0a-1.wav`).play()
-        }
+        audioFile[0].play()
     } else {
-        try {
-            new Audio(`wav/${keyCode}-0.wav`).play()
-        } catch (e) {
-            new Audio(`wav/0a-0.wav`).play()
-        }
+        audioFile[1].play()
     }
 
 }
