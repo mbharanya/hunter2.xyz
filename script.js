@@ -18,25 +18,71 @@ const chatLines = `
 <AzureDiamond> oh, ok.
 `.trim().split("\n")
 
+
+const keyMap = {
+    "0": "30",
+    "1": "31",
+    "2": "32",
+    "3": "33",
+    "4": "34",
+    "5": "35",
+    "6": "36",
+    "7": "37",
+    "8": "38",
+    "9": "39",
+    "A": "41",
+    "B": "42",
+    "C": "43",
+    "D": "44",
+    "E": "45",
+    "F": "46",
+    "G": "47",
+    "H": "48",
+    "I": "49",
+    "J": "4A",
+    "K": "4B",
+    "L": "4C",
+    "M": "4D",
+    "N": "4E",
+    "O": "4F",
+    "P": "50",
+    "Q": "51",
+    "R": "52",
+    "S": "53",
+    "T": "53",
+    "U": "56",
+    "V": "56",
+    "W": "57",
+    "X": "58",
+    "Y": "58",
+    "Z": "5A",
+    "+": "BB",
+    ",": "0B",
+    "-": "0B",
+    ".": "BE",
+}
+
 const chatElem = document.getElementById("chat")
 const replyDelayMultiplier = 75
 const typingDelay = 220
 const ourUserName = "<AzureDiamond> "
-populate().then(() => { })
 
-async function populate(){
+async function populate() {
+    document.getElementById("start").remove()
     for (const chatLine of chatLines) {
         const matches = chatLine.match(/(<[a-zA-Z0-9]+>\s)(.*)/)
         const username = matches[1]
         const message = matches[2]
         await delay(replyDelayMultiplier * 10)
         writeToChat(username)
-        if (username == ourUserName){
-            for (const char of message.split("")){
+        if (username == ourUserName) {
+            for (const char of message.split("")) {
+                playSound(char, true)
                 await delay(Math.floor(Math.random() * typingDelay))
                 writeToChat(char)
+                playSound(char, false)
             }
-        }else{
+        } else {
             await delay(message.length * replyDelayMultiplier)
             writeToChat(message)
         }
@@ -44,7 +90,25 @@ async function populate(){
     }
 }
 
-function writeToChat(text){
+function playSound(char, down) {
+    const keyCode = (keyMap[char.toUpperCase()] || "0a").toLowerCase()
+    if (down) {
+        try {
+            new Audio(`wav/${keyCode}-1.wav`).play()
+        } catch (e) {
+            new Audio(`wav/0a-1.wav`).play()
+        }
+    } else {
+        try {
+            new Audio(`wav/${keyCode}-0.wav`).play()
+        } catch (e) {
+            new Audio(`wav/0a-0.wav`).play()
+        }
+    }
+
+}
+
+function writeToChat(text) {
     chatElem.innerHTML = chatElem.innerHTML + text.replace("<", "&lt;").replace(">", "&gt;")
 }
 
