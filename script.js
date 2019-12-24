@@ -98,14 +98,18 @@ async function populate() {
         writeToChat("\n")
     }
     document.getElementById("username").style.display = "inline"
-    document.getElementById("chat-input").focus()
+    const chatInput = document.getElementById("chat-input")
+    chatInput.focus()
 
-    document.getElementById("chat-input").addEventListener("keyup", function(event) {
-        playSound(event.key.substr(0), true)
+    chatInput.addEventListener("keyup", function(event) {
         if (event.key === "Enter") {
-            writeToChat(ourUserName + document.getElementById("chat-input").value + "\n")
+            writeToChat(ourUserName + chatInput.value + "\n")
+            chatInput.value = ""
         }
         playSound(event.key.substr(0), false)
+    });
+    chatInput.addEventListener("keydown", function(event) {
+        playSound(event.key.substr(0), true)
     });
 }
 
