@@ -72,8 +72,8 @@ Object.keys(keyMap).forEach(k => {
 })
 
 const chatElem = document.getElementById("chat")
-const replyDelayMultiplier = 1
-const typingDelay = 1
+const replyDelayMultiplier = 75
+const typingDelay = 220
 const ourUserName = "<AzureDiamond> "
 
 async function populate() {
