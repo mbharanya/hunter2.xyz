@@ -10,7 +10,8 @@ body {
     text-shadow: 0 0 5px #C8C8C8;
 }
 
-a{
+
+a {
     color: white;
 }
 
@@ -32,4 +33,48 @@ body::after {
 
 pre {
     margin: 0;
+}
+
+#username{
+    display: none;
+}
+
+input#chat-input{
+    background-color: transparent;
+    border: none;
+    color: white;
+    font: 1.3rem Inconsolata, monospace;
+    text-shadow: 0 0 5px #C8C8C8;
+    caret-color: white;
+}
+
+
+footer {
+    padding: 2rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+
+.blinking-cursor {
+    display: inline;
+    font-weight: 100;
+    font-size: 30px;
+    color: #2E3D48;
+    -webkit-animation: 1s blink step-end infinite;
+    -moz-animation: 1s blink step-end infinite;
+    -ms-animation: 1s blink step-end infinite;
+    -o-animation: 1s blink step-end infinite;
+    animation: 1s blink step-end infinite;
+}
+
+@keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: white;
+    }
 }

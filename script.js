@@ -72,8 +72,8 @@ Object.keys(keyMap).forEach(k => {
 })
 
 const chatElem = document.getElementById("chat")
-const replyDelayMultiplier = 75
-const typingDelay = 220
+const replyDelayMultiplier = 1
+const typingDelay = 1
 const ourUserName = "<AzureDiamond> "
 
 async function populate() {
@@ -97,6 +97,14 @@ async function populate() {
         }
         writeToChat("\n")
     }
+    document.getElementById("username").style.display = "inline"
+    document.getElementById("chat-input").focus()
+
+    document.getElementById("chat-input").addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            writeToChat(ourUserName + document.getElementById("chat-input").value + "\n")
+        }
+    });
 }
 
 function playSound(char, down) {
