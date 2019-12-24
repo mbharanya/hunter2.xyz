@@ -101,9 +101,11 @@ async function populate() {
     document.getElementById("chat-input").focus()
 
     document.getElementById("chat-input").addEventListener("keyup", function(event) {
+        playSound(event.key.substr(0), true)
         if (event.key === "Enter") {
             writeToChat(ourUserName + document.getElementById("chat-input").value + "\n")
         }
+        playSound(event.key.substr(0), false)
     });
 }
 
