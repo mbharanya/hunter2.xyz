@@ -102,7 +102,7 @@ async function populate() {
     chatInput.focus()
 
     chatInput.addEventListener("keyup", function(event) {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" && chatInput.value.length > 0) {
             writeToChat(ourUserName + chatInput.value + "\n")
             chatInput.value = ""
         }
