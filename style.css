@@ -10,7 +10,6 @@ body {
     text-shadow: 0 0 5px #C8C8C8;
 }
 
-
 a {
     color: white;
 }
@@ -35,11 +34,15 @@ pre {
     margin: 0;
 }
 
-#username{
+#username {
     display: none;
 }
 
-input#chat-input{
+div#chat-input-line {
+    width: 100%;
+}
+
+input#chat-input {
     background-color: transparent;
     border: none;
     color: white;
@@ -47,7 +50,6 @@ input#chat-input{
     text-shadow: 0 0 5px #C8C8C8;
     caret-color: white;
 }
-
 
 footer {
     padding: 2rem;
@@ -57,16 +59,11 @@ footer {
     width: 100%;
 }
 
-
-.blinking-cursor {
-    display: inline;
+#blinking-cursor {
+    display: none;
     font-weight: 100;
     font-size: 30px;
-    color: #2E3D48;
-    -webkit-animation: 1s blink step-end infinite;
-    -moz-animation: 1s blink step-end infinite;
-    -ms-animation: 1s blink step-end infinite;
-    -o-animation: 1s blink step-end infinite;
+    color: white;
     animation: 1s blink step-end infinite;
 }
 

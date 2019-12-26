@@ -19,6 +19,10 @@ const chatLines = `
 `.trim().split("\n")
 
 
+const startup = new Audio("startup.wav")
+const running = new Audio("running.wav")
+running.loop = true
+
 const keyMap = {
     "0": "30",
     "1": "31",
@@ -78,6 +82,13 @@ const ourUserName = "<AzureDiamond> "
 
 async function populate() {
     document.getElementById("start").remove()
+    const cursor = document.getElementById("blinking-cursor")
+    cursor.style.display = "inline"
+    startup.play()
+    await new Promise(resolve => startup.onended = resolve)
+    cursor.style.display = "none"
+    running.play()
+
     for (const chatLine of chatLines) {
         const matches = chatLine.match(/(<[a-zA-Z0-9]+>\s)(.*)/)
         const username = matches[1]
@@ -101,14 +112,14 @@ async function populate() {
     const chatInput = document.getElementById("chat-input")
     chatInput.focus()
 
-    chatInput.addEventListener("keyup", function(event) {
+    chatInput.addEventListener("keyup", function (event) {
         if (event.key === "Enter" && chatInput.value.length > 0) {
             writeToChat(ourUserName + chatInput.value + "\n")
             chatInput.value = ""
         }
         playSound(event.key.substr(0), false)
     });
-    chatInput.addEventListener("keydown", function(event) {
+    chatInput.addEventListener("keydown", function (event) {
         playSound(event.key.substr(0), true)
     });
 }

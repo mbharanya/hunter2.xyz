@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +9,14 @@
     <script src="script.js" async defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <pre><a href="#" id="start" onclick="populate()">Click me to start!</a><code id="chat"></code></pre>
+    <pre><a href="#" id="start" onclick="populate()">Click me to start!</a><span id="blinking-cursor">_</span><code id="chat"></code></pre>
     <footer>
-        <span id="username">&lt;AzureDiamond&gt; </span><input id="chat-input" type="text">
+        <div id="chat-input-line">
+            <span id="username">&lt;AzureDiamond&gt; </span><input id="chat-input" type="text">
+        </div>
     </footer>
 </body>
+
 </html>
