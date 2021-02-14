@@ -81,10 +81,12 @@ const typingDelay = 220
 const ourUserName = "<AzureDiamond> "
 
 async function populate() {
-    document.getElementById("start").remove()
+    document.getElementById("power-switch").src = "power-switch-on.jpg"
+    startup.play()
+    await delay(1000)
+    document.getElementById("power-switch").style.display = "none"
     const cursor = document.getElementById("blinking-cursor")
     cursor.style.display = "inline"
-    startup.play()
     await new Promise(resolve => startup.onended = resolve)
     cursor.style.display = "none"
     running.play()
@@ -111,11 +113,14 @@ async function populate() {
     document.getElementById("username").style.display = "inline"
     const chatInput = document.getElementById("chat-input")
     chatInput.focus()
+    window.eliza = new ElizaBot(true);
 
-    chatInput.addEventListener("keyup", function (event) {
+    chatInput.addEventListener("keyup", async function (event) {
         if (event.key === "Enter" && chatInput.value.length > 0) {
             writeToChat(ourUserName + chatInput.value + "\n")
+            const message = chatInput.value
             chatInput.value = ""
+            await elizaRespond(message)
         }
         playSound(event.key.substr(0), false)
     });
@@ -140,4 +145,10 @@ function writeToChat(text) {
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function elizaRespond(message){
+    const reply = window.eliza.transform(message);
+    await delay(reply.length * replyDelayMultiplier)
+    writeToChat(`<ELIZA> ${reply}\n`)
 }
